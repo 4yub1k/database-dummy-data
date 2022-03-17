@@ -14,12 +14,13 @@ domain_names=['@yahoo.com','@gmail.com','@outlook.com']
 
 length=10
 number_rows=10
-columns ={'tetstet': ['String','20'], 'apple': ['Integer', '20'], 'apple2': ['Float', '20'], 'apple33': ['Boolean', '20']}
+#columns ={'tetstet': ['String','20'], 'apple': ['Integer', '20'], 'apple2': ['Float', '20'], 'apple33': ['Boolean', '20']}
+columns={'er': ['Integer', '10'], 'er3': ['Boolean', '1']}
 #csv_string={}
 class Generate_data():
     row_id=0
     @staticmethod #just for info
-    def data_generate(columns,number_rows,length):
+    def data_generate(columns,number_rows):
         with open('csv_db_data.csv', 'w') as csvfile:
             csvfile.write('id,'+",".join(list(columns.keys()))+'\n')
             for rows in range(0,number_rows):
@@ -31,11 +32,11 @@ class Generate_data():
                         column_value="".join(choices(password, k=int(values[1])))
                         #csv_string[key]={values[0]:column_value}
                     elif values[0] == 'Integer':
-                        for n in range(length):
+                        for n in range(int(values[1])):
                             column_value+=str(randrange(0,9))
                         #csv_string[key]={values[0]:column_value}
                     elif values[0] == 'Float':
-                        for n in range(length):
+                        for n in range(int(values[1])):
                             column_value+=str(randrange(0,9))
                         column_value=str(int((column_value))/10)
                         #csv_string[key]={values[0]:column_value}
@@ -49,9 +50,9 @@ class Generate_data():
                         csvfile.write(',')
                 csvfile.write('\n')
                 #row_id+=1 #use rows instead if you want
-def main_program(columns,number_rows,length):
+def main_program(columns,number_rows):
     with ProcessPoolExecutor() as exe:
-        exe.submit(Generate_data.data_generate,columns,number_rows,length)
+        exe.submit(Generate_data.data_generate,columns,number_rows)
 
 if __name__=="__main__":
-    main_program(columns,number_rows,length)
+    main_program(columns,number_rows)

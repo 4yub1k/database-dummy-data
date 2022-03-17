@@ -37,16 +37,16 @@ def addColumn(label,data_length,option,layout_3):
     layout_3.addWidget(length,row,col+2)
     row+=1
     columns[label.text()]=[option.currentText(),data_length.text()]
-def genCsv(columns,number_rows,data_length):
+
+def genCsv(columns,number_rows):
     if not columns:
         col_message("Column List empty !",'Column Error','Critical')
         return None
-
     with ProcessPoolExecutor() as exe:
-        exe.submit(Generate_data.data_generate(columns,int(number_rows.text()),int(data_length.text())))
+        exe.submit(Generate_data.data_generate(columns,int(number_rows.text())))
         col_message('Completed','Done','Information')
-
     return None
+
 def main_window():
     app = QApplication(sys.argv)
     window = QWidget()
@@ -55,7 +55,6 @@ def main_window():
     size = screen.size()
 
     window.setFixedSize(int(size.width()/2), int(size.height()/2))
-
     window.move(int(size.width()/4),200)
 
     layout_1 = QVBoxLayout()
@@ -73,7 +72,7 @@ def main_window():
     btn.clicked.connect(lambda:addColumn(label,data_length,option,layout_3))  
 
     btn_gen = QPushButton('Generate (CSV)')
-    btn_gen.clicked.connect(lambda:genCsv(columns,number_rows,data_length))
+    btn_gen.clicked.connect(lambda:genCsv(columns,number_rows))
 
     scrollArea = QScrollArea()
     scrollArea.setWidgetResizable(True)
