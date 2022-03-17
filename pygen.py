@@ -105,4 +105,6 @@ def main_window():
 if __name__=="__main__":
     multiprocessing.freeze_support()
     main_window()
-#pyinstaller.exe --onefile --windowed app.py
+#To create .EXE
+#pip install pyinstaller
+#pyinstaller.exe --onefile --windowed pygen.py
